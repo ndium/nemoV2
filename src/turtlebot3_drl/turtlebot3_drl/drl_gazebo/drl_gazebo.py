@@ -174,7 +174,13 @@ class DRLGazebo(Node):
                 index = random.randrange(0, len(goal_pose_list))
                 self.goal_x = float(goal_pose_list[index][0])
                 self.goal_y = float(goal_pose_list[index][1])
-            elif self.stage not in [4, 5, 7]:
+            elif self.stage == 4:
+                ###### stage 4 pour le labyrinthe 1
+                goal_pose_list = [[-1.0, 2.0], [-2.0, 2.0], [0.0, -2.0], [2.0, -2.0], [-1.0, -2.0], [-2.0, -1.0], [-2.0, 0.0], [1.0, 1.0], [2.0, 0.0]]
+                index = random.randrange(0, len(goal_pose_list))
+                self.goal_x = float(goal_pose_list[index][0])
+                self.goal_y = float(goal_pose_list[index][1])
+            elif self.stage not in [5, 7]:
                 self.goal_x = random.randrange(-15, 16) / 10.0
                 self.goal_y = random.randrange(-15, 16) / 10.0
             else:
