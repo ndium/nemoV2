@@ -1,13 +1,19 @@
 # Mobile Robot DRL Navigation
 
 ### A ROS2 framework for DRL autonomous navigation on mobile robots with LiDAR.
+We were inspired by the following repository: [tomasvr/turtlebot3_drlnav](https://github.com/tomasvr/turtlebot3_drlnav)
 
 <p align="center">
  <img src="media/gitHub_header.png" width="700" />
 </p>
 
-We were inspired by the following repository: [tomasvr/turtlebot3_drlnav](https://github.com/tomasvr/turtlebot3_drlnav)
+## Nemo Training
+Nemo is a robot. Its objective is to learn how to find the exit of a labyrinth. To achieve this, we have constructed 30 mazes of varying difficulty levels to thoroughly train our model. The goal of this project is to train both a QNN (Quantum Neural Network) and an SNN (Spiking Neural Network) under the same conditions and analyze the results to find the optimal algorithm for this type of problem.
 
+_Here is a summary of the generated mazes:_
+<p align="left">
+ <img src="media/maze_generation.png" width="700" />
+</p>
 
 # Nemo Installation Guide 
 
