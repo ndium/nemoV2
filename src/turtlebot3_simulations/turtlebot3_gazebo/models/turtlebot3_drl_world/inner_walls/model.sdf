@@ -2,21 +2,20 @@
 <sdf version='1.6'>
   <model name='inner_walls'>
     <pose frame=''>0 0 0 0 0 0</pose>
-    <!-- [1] OK -->
     <link name='inner_wall_1'>
       <collision name='inner_wall_1_collision'>
         <geometry>
           <box>
-            <size>3 0.15 0.5</size>
+            <size>1 0.15 0.5</size>
           </box>
         </geometry>
-        <pose frame=''>2 0 0.25 0 -0 0</pose>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
       </collision>
       <visual name='inner_wall_visual'>
-        <pose frame=''>2 0 0.25 0 -0 0</pose>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
-            <size>3 0.15 0.5</size>
+            <size>1 0.15 0.5</size>
           </box>
         </geometry>
         <material>
@@ -29,8 +28,6 @@
       </visual>
       <pose frame=''>-2.0 -1.5 0 0 -0 0</pose>
     </link>
-    <!-- [1] OK -->
-    <!-- [2] OK -->
     <link name='inner_wall_2'>
       <collision name='inner_wall_2_collision'>
         <geometry>
@@ -57,8 +54,6 @@
       </visual>
       <pose frame=''>-0.5 -2.0 0 0 0 -1.5708</pose>
     </link>
-    <!-- [2] OK -->
-    <!-- [3] OK -->
     <link name='inner_wall_3'>
       <collision name='inner_wall_3_collision'>
         <geometry>
@@ -66,10 +61,10 @@
             <size>1 0.15 0.5</size>
           </box>
         </geometry>
-        <pose frame=''>0 -0.50 0.25 0 -0 0</pose>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
       </collision>
       <visual name='inner_wall_3_visual'>
-        <pose frame=''>0 -0.50 0.25 0 -0 0</pose>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
             <size>1 0.15 0.5</size>
@@ -85,8 +80,6 @@
       </visual>
       <pose frame=''>1.0 -1.0 0 0 -0 1.5708</pose>
     </link>
-    <!-- [3] OK -->
-    <!-- [4] OK -->
     <link name='inner_wall_4'>
       <collision name='inner_wall_4_collision'>
         <geometry>
@@ -94,10 +87,10 @@
             <size>1 0.15 0.5</size>
           </box>
         </geometry>
-        <pose frame=''>1 0.30 0.25 0 -0 0</pose>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
       </collision>
       <visual name='inner_wall_4_visual'>
-        <pose frame=''>1 0.30 0.25 0 -0 0</pose>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
             <size>1 0.15 0.5</size>
@@ -113,22 +106,20 @@
       </visual>
       <pose frame=''>1.2 1.9 0 0 0 -1.5708</pose>
     </link>
-    <!-- [4] OK -->
-    <!-- [5] OK -->
     <link name='inner_wall_5'>
       <collision name='inner_wall_5_collision'>
         <geometry>
           <box>
-            <size>2 0.15 0.5</size>
+            <size>1 0.15 0.5</size>
           </box>
         </geometry>
-        <pose frame=''>-1.30 0 0.25 0 -0 0</pose>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
       </collision>
       <visual name='inner_wall_5_visual'>
-        <pose frame=''>-1.30 0 0.25 0 -0 0</pose>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
-            <size>2 0.15 0.5</size>
+            <size>1 0.15 0.5</size>
           </box>
         </geometry>
         <material>
@@ -141,13 +132,11 @@
       </visual>
       <pose frame=''>1.9 0.4 0 0 -0 0</pose>
     </link>
-    <!-- [5] OK -->
-    <!-- [6] OK -->
     <link name='inner_wall_6'>
       <collision name='inner_wall_6_collision'>
         <geometry>
           <box>
-            <size>2 0.15 0.5</size>
+            <size>1 0.15 0.5</size>
           </box>
         </geometry>
         <pose frame=''>0 0 0.25 0 -0 0</pose>
@@ -156,7 +145,7 @@
         <pose frame=''>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
-            <size>2 0.15 0.5</size>
+            <size>1 0.15 0.5</size>
           </box>
         </geometry>
         <material>
@@ -169,47 +158,17 @@
       </visual>
       <pose frame=''>-0.5 1.5 0 0 -0 0</pose>
     </link>
-    <!-- [6] OK -->
-    <!-- [7] OK -->
     <link name='inner_wall_7'>
       <collision name='inner_wall_7_collision'>
         <geometry>
           <box>
-            <size>2 0.15 0.5</size>
+            <size>1 0.15 0.5</size>
           </box>
         </geometry>
-        <pose frame=''>-1.25 -0.25 0.25 0 -0 0</pose>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
       </collision>
       <visual name='inner_wall_7_visual'>
-        <pose frame=''>-1.25 -0.25 0.25 0 -0 0</pose>
-        <geometry>
-          <box>
-            <size>2 0.15 0.5</size>
-          </box>
-        </geometry>
-        <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Wood</name>
-          </script>
-          <ambient>1 1 1 1</ambient>
-        </material>
-      </visual>
-      <pose frame=''>-1.2 0.092 0 0 0 -1.5708</pose>
-    </link>
-    <!-- [7] OK -->
-    <!-- [8] OK -->
-    <link name='inner_wall_8'>
-      <collision name='inner_wall_8_collision'>
-        <geometry>
-          <box>
-            <size>1 0.15 0.5</size>
-          </box>
-        </geometry>
-        <pose frame=''>1 0.70 0.25 0 -0 0</pose>
-      </collision>
-      <visual name='inner_wall_8_visual'>
-        <pose frame=''>1 0.70 0.25 0 -0 0</pose>
+        <pose frame=''>0 0 0.25 0 -0 0</pose>
         <geometry>
           <box>
             <size>1 0.15 0.5</size>
@@ -225,64 +184,6 @@
       </visual>
       <pose frame=''>-1.2 0.092 0 0 0 -1.5708</pose>
     </link>
-    <!-- [8] OK -->
-    <!-- [9] OK -->
-    <link name='inner_wall_9'>
-      <collision name='inner_wall_9_collision'>
-        <geometry>
-          <box>
-            <size>1 0.15 0.5</size>
-          </box>
-        </geometry>
-        <pose frame=''>0 1 0.25 0 -0 0</pose>
-      </collision>
-      <visual name='inner_wall_visual'>
-        <pose frame=''>0 1 0.25 0 -0 0</pose>
-        <geometry>
-          <box>
-            <size>1 0.15 0.5</size>
-          </box>
-        </geometry>
-        <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Wood</name>
-          </script>
-          <ambient>1 1 1 1</ambient>
-        </material>
-      </visual>
-      <pose frame=''>-2.0 -1.5 0 0 -0 0</pose>
-    </link>
-    <!-- [9] OK -->
-    <!-- [10] OK -->
-    <link name='inner_wall_10'>
-      <collision name='inner_wall_10_collision'>
-        <geometry>
-          <box>
-            <size>1 0.15 0.5</size>
-          </box>
-        </geometry>
-        <pose frame=''>3 1 0.25 0 -0 0</pose>
-      </collision>
-      <visual name='inner_wall_visual'>
-        <pose frame=''>3 1 0.25 0 -0 0</pose>
-        <geometry>
-          <box>
-            <size>1 0.15 0.5</size>
-          </box>
-        </geometry>
-        <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Wood</name>
-          </script>
-          <ambient>1 1 1 1</ambient>
-        </material>
-      </visual>
-      <pose frame=''>-2.0 -1.5 0 0 -0 0</pose>
-    </link>
-    <!-- [10] OK -->
     <static>1</static>
   </model>
 </sdf>
-	
