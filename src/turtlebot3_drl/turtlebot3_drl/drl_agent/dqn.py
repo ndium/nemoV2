@@ -38,6 +38,8 @@ class Actor(Network):
             action = torch.from_numpy(np.asarray(POSSIBLE_ACTIONS[action.argmax().tolist()], np.float32))
             self.visual.update_layers(states, action, [x1, x2], [self.fa1.bias, self.fa2.bias])
         # -- define layers to visualize until here ---
+
+
         return action
 
 class DQN(OffPolicyAgent):

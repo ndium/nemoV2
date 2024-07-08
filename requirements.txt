@@ -4,3 +4,4 @@ matplotlib
 pandas
 pyqtgraph==0.12.4
 PyQt5==5.14.1
+norse

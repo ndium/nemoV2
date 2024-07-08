@@ -70,7 +70,7 @@ class DRLGazebo(Node):
         self.reset_simulation()
         self.publish_callback()
         print("Init, goal pose:", self.goal_x, self.goal_y)
-        time.sleep(1)
+        time.sleep(0.6)
 
     def publish_callback(self):
         # Publish goal pose
@@ -82,6 +82,7 @@ class DRLGazebo(Node):
 
     def task_succeed_callback(self, request, response):
         self.delete_entity()
+        self.reset_simulation()
         if ENABLE_TRUE_RANDOM_GOALS:
             self.generate_random_goal()
             print(f"success: generate (random) a new goal, goal pose: {self.goal_x:.2f}, {self.goal_y:.2f}")
@@ -167,7 +168,12 @@ class DRLGazebo(Node):
                 self.goal_x = float(goal_pose_list[index][0])
                 self.goal_y = float(goal_pose_list[index][1])
             elif self.stage == 4:
-                goal_pose_list = [[-1.0, 0.5]]
+                goal_pose_list = [[1.0, 0.5]]
+                index = random.randrange(0, len(goal_pose_list))
+                self.goal_x = float(goal_pose_list[index][0])
+                self.goal_y = float(goal_pose_list[index][1])
+            elif self.stage == 100:
+                goal_pose_list = [[1.0, 0.5]]
                 index = random.randrange(0, len(goal_pose_list))
                 self.goal_x = float(goal_pose_list[index][0])
                 self.goal_y = float(goal_pose_list[index][1])

@@ -32,6 +32,7 @@ if ENABLE_VISUAL:
 from ..common import utilities as util
 
 from .dqn import DQN
+from .snn import SNN
 from .ddpg import DDPG
 from .td3 import TD3
 
@@ -61,12 +62,14 @@ class DrlAgent(Node):
 
         if self.algorithm == 'dqn':
             self.model = DQN(self.device, self.sim_speed)
+        elif self.algorithm == 'snn':
+            self.model = SNN(self.device, self.sim_speed)
         elif self.algorithm == 'ddpg':
             self.model = DDPG(self.device, self.sim_speed)
         elif self.algorithm == 'td3':
             self.model = TD3(self.device, self.sim_speed)
         else:
-            quit("\033[1m" + "\033[93m" + f"invalid algorithm specified ({self.algorithm}), choose one of: dqn, ddpg, td3" + "\033[0m}")
+            quit("\033[1m" + "\033[93m" + f"invalid algorithm specified ({self.algorithm}), choose one of: dqn, ddpg, td3, snn" + "\033[0m}")
 
         self.replay_buffer = ReplayBuffer(self.model.buffer_size)
         self.graph = Graph()
@@ -133,7 +136,7 @@ class DrlAgent(Node):
                     action = self.model.get_action(state, self.training, step, ENABLE_VISUAL)
 
                 action_current = action
-                if self.algorithm == 'dqn':
+                if self.algorithm == 'dqn' or self.algorithm == 'snn':
                     action_current = self.model.possible_actions[action]
 
                 # Take a step

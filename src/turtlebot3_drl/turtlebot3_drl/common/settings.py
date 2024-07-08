@@ -2,7 +2,7 @@
 #                           GENERAL SETTINGS                            #
 # ===================================================================== #
 
-ENABLE_BACKWARD          = False    # Enable backward movement of the robot
+ENABLE_BACKWARD          = True    # Enable backward movement of the robot
 ENABLE_STACKING          = False    # Enable processing multiple consecutive scan frames at every observation step
 ENABLE_VISUAL            = False    # Meant to be used only during evaluation/testing phase
 ENABLE_TRUE_RANDOM_GOALS = False    # If false, goals are selected semi-randomly from a list of known valid goal positions
@@ -76,13 +76,14 @@ DISCOUNT_FACTOR = 0.99
 LEARNING_RATE   = 0.003
 TAU             = 0.003
 
-OBSERVE_STEPS   = 25000     # At training start random actions are taken for N steps for better exploration
+OBSERVE_STEPS   = 300     # At training start random actions are taken for N steps for better exploration
 STEP_TIME       = 0.01      # Delay between steps, can be set to 0
 EPSILON_DECAY   = 0.9995    # Epsilon decay per step
 EPSILON_MINIMUM = 0.05
 
 # DQN parameters
 DQN_ACTION_SIZE = 5
+SNN_ACTION_SIZE = 5
 TARGET_UPDATE_FREQUENCY = 1000
 
 # DDPG parameters

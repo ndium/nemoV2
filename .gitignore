@@ -5,3 +5,4 @@ install/
 log/
 tmux*
 src/turtlebot3_drl/model/pop-os/*
+src/turtlebot3_drl/model/backup/
