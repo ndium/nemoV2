@@ -22,6 +22,8 @@ _Here is a summary of the generated mazes:_
 - Ubuntu 22.04
 - ROS Humble
 - Gazebo 11
+- Pytorch 2.3
+- Norse 1.1.0
 
 ## System Update 
 
@@ -285,3 +287,130 @@ Run Gazebo goals:
 ```bash
 ros2 run turtlebot3_drl gazebo_goals
 ```
+
+## Test project which is finished
+
+example:
+
+```bash
+ros2 run turtlebot3_drl test_agent snn "snn_41_stage_4" 8000
+``` 
+
+
+## **Utilities**
+### Graph Generation
+
+In order to compare results the repository includes a script that graphs the reward curves for different models. The script `reward_graph.py` can be found in the `util` directory.
+
+To compare the reward curve for `ddpg_0` and `td3_0` every 100 episodes we type:
+```
+python3 util/reward_graph.py 100 examples/ddpg_0 examples/td3_0
+```
+
+Again, `examples/` should not be included in the path for your own models.
+
+**Note: graph generation will only work correctly if training has not been stopped and continued. Otherwise you first need to merge the different _train_stage*.txt files into a single file**
+
+### Cleaning model data
+
+Training models can generate a lot of data, especially if you save the model often. In order to automatically clean models to save space, two cleaning scripts are included in the `util` folder.
+
+**CAUTION: use the following scripts with caution as deleted data cannot be retrieved! Carefully examine the script settings and double-check the command line arguments you enter**
+
+The following line will clean ddpg_0 removing all saved model states except:
+* The model state for the 4 best-performing episodes
+* The model state for the most recent episode
+`python3 util/clean_single_model.py ddpg_0`
+
+If you want to keep more or less data you can adjust the `TOP_EPISODES` parameters in the script itself.
+
+To clean all of the models at once you can use the `purge_all_models.py` script. Carefully check the parameters at the top of the file before executing the script. To execute the script simply type:
+```python3 util/purge_all_models.py```
+
+The script will loop through all of your models and select the models to keep like explained above. In addition, models which scored too low or were trained for too few episodes will be removed completely (threshold specified in `purge_all_models.py`).
+
+### Visualization
+
+To enable a complete visualization of the neural network neuron activity and biases simply set `ENABLE_VISUAL` to `True` in `settings.py`. This requires the python3 packages `pyqtgraph` and `PyQt5` to be installed.
+The visual should mainly be used during evaluation as it can slow down training significantly.
+## Command Specification
+
+**train_agent:**
+
+```ros2 run turtlebot3_drl train_agent [algorithm=dqn/ddpg/td3/snn] [loadmodel=\path\to\model] [loadepisode=episode] ```
+
+* `algorithm`: algorithm to run, one of either: `dqn`, `ddpg`, `td3`, `snn`
+* `modelpath`: path to the model to be loaded to continue training
+* `loadepisode`: is the episode to load from `modelpath`
+
+**test_agent:**
+
+```ros2 run turtlebot3_drl test_agent [algorithm=dqn/ddpg/td3/snn] [loadmodel=\path\to\model] [loadepisode=episode] ```
+
+* `algorithm`: algorithm to run, one of either: `dqn`, `ddpg`, `td3`, `snn`
+* `modelpath`: path to model to be loaded for testing
+* `loadepisode`: is the episode to load from `modelpath`
+
+# Physical Robot
+
+The are three main requirements for a robot to be compatible with this project:
+* The robot needs to provide LiDAR scan information
+* The robot needs to provide any kind of odometry information (e.g. tachometers, SLAM, AMCL or GPS)
+* The robot needs to be able to work with linear and angular velocity messages
+
+To run one of your models (trained in simulation) on a physical robot follow these steps:
+* In settings.py, adjust the REAL ROBOT ENVIRONMENT SETTINGS
+  * **REAL_TOPIC**: Set the right ROS topics for your laser scan, odometry and velocity inputs/outputs
+  * **REAL_N_SCAN_SAMPLES**: Configure the number of Lidar samples your robot will provide
+  * **REAL_LIDAR_CORRECTION**: Depending on the dimensions of your robot the LiDAR values might need to be corrected to avoid the agent from detecting a 'collision' when the robot has not yet actually collided with any obstacle. This value is simply subtracted from the real LiDAR readings and finding the right value requires some trial and error.
+  * Set the remaining options such as the arena dimensions, max velocities, max LiDAR distance, and goal and collision thresholds.
+
+Next, when using a physical robot we do not need to run the gazebo simulation node or the gazebo_goals node. We will however still need to run an environment node and an agent node.
+
+At this point, turn on the robot and initialize all of its components. Ensure that:
+* LiDAR scan ROS messages are being sent over the configured TOPIC_SCAN topic
+* Odometry ROS messages are being sent over the TOPIC_ODOM topic
+* The robot is listening for velocity ROS messages on the TOPIC_VELO topic.
+
+**Note:** If you are running nodes on multiple machines (e.g. one laptop and one robot) ensure that all machines have the same value set for `ROS_DOMAIN_ID` in `~/.bashrc`:
+
+`export ROS_DOMAIN_ID=[X]` (X can be any number as long as it is the same for each machine).
+
+Also ensure that all machines are connected to the same Local Area Network (LAN).
+
+Now, open a terminal on your laptop (or robot) and run the environment node for a real robot:
+```
+ros2 run turtlebot3_drl real_environment
+```
+
+Then, open another terminal and run the agent node for a real robot (substitute your model name and desired episode to load):
+```
+ros2 run turtlebot3_drl real_agent [ALGORITHM_NAME] [MODEL_NAME] [MODEL_EPISODE]
+```
+For example:
+```
+ros2 run turtlebot3_drl real_agent ddpg ddpg_1_stage4 1000
+```
+
+If everything loads correctly, you can now use the included script to generate a goal at location (x=1, y=1):
+```
+./spawn_goal 1 1
+```
+
+**And that's it!** You should now see the robot start moving toward the goal while avoiding obstacles.
+
+**Note:** You can use RViz2 in order to visualize the LiDAR scans for debugging and fine-tuning the REAL_LIDAR_CORRECTION value: simply add a `laser_scan` display type and set its topic to `TOPIC_SCAN`.
+
+# **Troubleshooting**
+
+## **bash: /opt/ros/humble/setup.bash: No such file or directory**
+
+Depending on your installation method of ROS, it might be required to add the following line to your `~/bashrc` file:
+```
+source ~/ros2_humble/ros2-linux/setup.bash
+```
+Also, make sure that you source the correct setup files in your `~/.bashrc` as described in the installation section of this guide.
+
+## **Package 'turtlebot3_gazebo' not found: "package 'turtlebot3_gazebo' not found, searching: ['/opt/ros/humble']"**
+
+Make sure to run `source install/setup.bash` from the root of the repository in every terminal every time after you build the project using `colcon_build`. Otherwise, the nodes will not run the updated version of your code but the old version from the last time you built and sourced.

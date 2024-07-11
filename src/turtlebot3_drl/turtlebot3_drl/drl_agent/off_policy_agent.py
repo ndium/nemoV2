@@ -57,6 +57,9 @@ class OffPolicyAgent(ABC):
 
         self.networks = []
         self.iteration = 0
+        
+        self.nbRandomAction = 0
+        self.nbRealAction = 0
 
     @abstractmethod
     def train():
