@@ -168,7 +168,7 @@ class DRLGazebo(Node):
                 self.goal_x = float(goal_pose_list[index][0])
                 self.goal_y = float(goal_pose_list[index][1])
             elif self.stage == 4:
-                goal_pose_list = [[0.5, 1.0]]
+                goal_pose_list = [[1.5, 1.0]]
                 index = random.randrange(0, len(goal_pose_list))
                 self.goal_x = float(goal_pose_list[index][0])
                 self.goal_y = float(goal_pose_list[index][1])

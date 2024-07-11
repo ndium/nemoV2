@@ -15,6 +15,86 @@ _Here is a summary of the generated mazes:_
  <img src="media/maze_generation.png" width="700" />
 </p>
 
+
+# **Installation**
+
+# **Docker Installation (Recommended)**
+
+In order to greatly simplify the installation process and get up and running quickly it is recommended to use Docker. Docker can be seen as a lightweight VM that allows you to run applications within an isolated container making it easy to install all of the dependencies.
+
+First, [install docker](https://docs.docker.com/engine/install/ubuntu/)
+
+Now, in order to use your GPU within the docker container to run the machine learning models, we need to complete a few extra simple steps.
+You should already have the nvidia driver installed on your system.
+
+
+## **Nvidia Container Toolkit**
+
+The next thing we need to do is install the [nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/overview.html) which is a piece of software that will allow us to use our GPU within the docker container. The installation steps are listed below.
+
+First, setup the package repository and the GPG key:
+
+```
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+```
+
+Then install the container toolkit:
+```
+sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+```
+-------ICI
+Configure the Docker daemon to recognize the NVIDIA Container Runtime:
+```
+sudo nvidia-ctk runtime configure --runtime=docker
+```
+
+And lastly, restart the Docker daemon to complete the installation after setting the default runtime:
+```
+sudo systemctl restart docker
+```
+
+At this point, a working setup can be tested by running a base CUDA container:
+```
+sudo docker run --rm --runtime=nvidia --gpus all nvidia/cuda:11.7.1-base-ubuntu22.04 nvidia-smi
+```
+## **Build and run container**
+
+Now build the container specified in the Dockerfile, which may take 10-20 minutes:
+
+```
+docker build -t nemov2 .
+```
+
+Lastly, we need to give our docker container permission to run GUIs:
+
+```
+xhost +local:docker
+```
+
+Launch docker compose:
+```
+docker-compose up
+```
+And that's it! we don't need to install any other dependencies thanks to docker.
+
+While inside the container first build our application:
+```
+colcon build
+```
+And then source our packages:
+```
+source install/setup.bash
+```
+
+Now you are ready to skip to the [Training](#training) section and run the application.
+
+# **Manual Installation**
+
+If you don't want to use docker you can install all dependencies manually.
+
 # Nemo Installation Guide 
 
 ## System Requirements 
