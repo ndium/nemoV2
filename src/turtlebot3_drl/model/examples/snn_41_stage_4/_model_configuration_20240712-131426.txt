@@ -1,0 +1,49 @@
+device = cuda
+simulation_speed = 1
+state_size = 44
+action_size = 5
+hidden_size = 512
+input_size = 44
+batch_size = 128
+buffer_size = 1000000
+discount_factor = 0.99
+learning_rate = 0.003
+tau = 0.003
+step_time = 0.01
+loss_function = <function smooth_l1_loss at 0x749f0f99b760>
+epsilon = 1.0
+epsilon_decay = 0.9995
+epsilon_minimum = 0.05
+reward_function = A
+backward_enabled = True
+stacking_enabled = False
+stack_depth = 3
+frame_skip = 4
+networks = [Actor(
+  (fc1): Linear(in_features=44, out_features=512, bias=True)
+  (lif1): LIFRecurrentCell(input_size=512, hidden_size=512, p=LIFParameters(tau_syn_inv=tensor(200., device='cuda:0'), tau_mem_inv=tensor(100., device='cuda:0'), v_leak=tensor(0., device='cuda:0'), v_th=tensor(1., device='cuda:0'), v_reset=tensor(0., device='cuda:0'), method='super', alpha=tensor(100., device='cuda:0')), autapses=False, dt=0.001)
+  (fc2): Linear(in_features=512, out_features=5, bias=True)
+), Actor(
+  (fc1): Linear(in_features=44, out_features=512, bias=True)
+  (lif1): LIFRecurrentCell(input_size=512, hidden_size=512, p=LIFParameters(tau_syn_inv=tensor(200., device='cuda:0'), tau_mem_inv=tensor(100., device='cuda:0'), v_leak=tensor(0., device='cuda:0'), v_th=tensor(1., device='cuda:0'), v_reset=tensor(0., device='cuda:0'), method='super', alpha=tensor(100., device='cuda:0')), autapses=False, dt=0.001)
+  (fc2): Linear(in_features=512, out_features=5, bias=True)
+)]
+iteration = 0
+nbRandomAction = 0
+nbRealAction = 0
+possible_actions = [[0.3, -1.0], [0.3, -0.5], [1.0, 0.0], [0.3, 0.5], [0.3, 1.0]]
+target_update_frequency = 1000
+actor_optimizer = AdamW (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.003
+    maximize: False
+    weight_decay: 0.01
+)
+
